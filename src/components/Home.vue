@@ -37,7 +37,7 @@
 
 <script setup>
 import {onBeforeUnmount, onMounted, ref} from 'vue'
-import GLOBE from 'vanta/dist/vanta.globe.min.js'
+import BIRDS from 'vanta/dist/vanta.birds.min.js'
 import * as THREE from 'three'
 import {isMobile} from 'mobile-device-detect'
 
@@ -45,11 +45,11 @@ const vantaRef = ref(null)
 let vantaEffect
 
 onMounted(() => {
-  vantaEffect = GLOBE({
+  vantaEffect = BIRDS({
     el: vantaRef.value,
     THREE: THREE,
-    color: 0x3697dc,
-    backgroundColor: 0xf0f0f
+    color1: 0x59ff,
+    color2: 0xd200ff
   })
 })
 
