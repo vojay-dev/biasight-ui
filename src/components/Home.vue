@@ -37,7 +37,7 @@
 
 <script setup>
 import {onBeforeUnmount, onMounted, ref} from 'vue'
-import WAVES from 'vanta/dist/vanta.waves.min.js'
+import GLOBE from 'vanta/dist/vanta.globe.min.js'
 import * as THREE from 'three'
 import {isMobile} from 'mobile-device-detect'
 
@@ -45,9 +45,11 @@ const vantaRef = ref(null)
 let vantaEffect
 
 onMounted(() => {
-  vantaEffect = WAVES({
+  vantaEffect = GLOBE({
     el: vantaRef.value,
-    THREE: THREE
+    THREE: THREE,
+    color: 0x3697dc,
+    backgroundColor: 0xf0f0f
   })
 })
 
