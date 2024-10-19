@@ -7,7 +7,7 @@ import VueKinesis from 'vue-kinesis'
 
 createApp(App).use(router).use(VueGtag, {
     config: {
-        id: "G-C3F9PD7XWL",
+        id: "G-BVZ5HDLB41",
         params: {
             anonymize_ip: true
         }
