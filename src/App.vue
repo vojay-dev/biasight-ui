@@ -18,10 +18,6 @@
                 <svg width="18" height="18" viewBox="0 0 48 48" class="text-orange-400 h-5 w-5" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 7H16C20.4183 7 24 10.5817 24 15V42C24 38.6863 21.3137 36 18 36H5V7Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="bevel"></path><path d="M43 7H32C27.5817 7 24 10.5817 24 15V42C24 38.6863 26.6863 36 30 36H43V7Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="bevel"></path></svg>
                 About
               </router-link></li>
-              <li class="px-1"><router-link to="/init" v-bind:class="{ 'active': currentRouteName === 'System' }">
-                <svg class="w-5 h-5 text-green-600" width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 29H6V43H20V29Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="butt" stroke-linejoin="bevel"></path><path d="M24 4L34 21H14L24 4Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="butt" stroke-linejoin="bevel"></path><path d="M36 44C40.4183 44 44 40.4183 44 36C44 31.5817 40.4183 28 36 28C31.5817 28 28 31.5817 28 36C28 40.4183 31.5817 44 36 44Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="butt" stroke-linejoin="bevel"></path></svg>
-                System Overview
-              </router-link></li>
               <li class="px-1">
                 <a href="#" target="_blank">
                   <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 512 512" class="text-red-400"><path fill="currentColor" d="M508.64 148.79c0-45-33.1-81.2-74-81.2C379.24 65 322.74 64 265 64h-18c-57.6 0-114.2 1-169.6 3.6C36.6 67.6 3.5 104 3.5 149C1 184.59-.06 220.19 0 255.79q-.15 53.4 3.4 106.9c0 45 33.1 81.5 73.9 81.5c58.2 2.7 117.9 3.9 178.6 3.8q91.2.3 178.6-3.8c40.9 0 74-36.5 74-81.5c2.4-35.7 3.5-71.3 3.4-107q.34-53.4-3.26-106.9M207 353.89v-196.5l145 98.2Z"/></svg>
@@ -59,6 +55,8 @@
           </router-link>
         </div>
         <div class="navbar-end">
+          <div v-if="usage != null && limit != null"><span class="badge badge-outline badge-info">Daily usage: {{ usage }} / {{ limit }}</span></div>
+          <div v-else-if="error != null"><span class="badge badge-error">Error talking to backend</span></div>
         </div>
       </nav>
     </header>
@@ -92,9 +90,25 @@
 
 <script setup>
 import {useRoute} from 'vue-router'
-import {computed} from 'vue'
+import {computed, onMounted, ref} from 'vue'
 import CustomCursor from "./components/CustomCursor.vue"
+import {getLimit} from "./client.js";
 
 const route = useRoute()
 const currentRouteName = computed(() => route.name)
+
+const limit = ref(null)
+const usage = ref(null)
+const error = ref(null)
+
+onMounted(async () => {
+  const limitResult = await getLimit()
+
+  if (limitResult.error != null) {
+    error.value = limitResult.error
+  } else {
+    limit.value = limitResult.result.limit
+    usage.value = limitResult.result.usage
+  }
+})
 </script>

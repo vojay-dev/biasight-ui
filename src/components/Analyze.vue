@@ -283,11 +283,11 @@ import {onBeforeUnmount, onMounted, ref} from "vue"
 import HALO from 'vanta/dist/vanta.halo.min'
 import * as THREE from 'three'
 import selectionSfx from '../assets/selection.mp3'
-import {API_BASE_URI} from "../config.js";
-import {isMobile} from "mobile-device-detect";
-import {useRouter} from "vue-router";
-import {useSound} from "@vueuse/sound";
-import LoadingAnimation from "./LoadingAnimation.vue";
+import {isMobile} from "mobile-device-detect"
+import {useRouter} from "vue-router"
+import {useSound} from "@vueuse/sound"
+import LoadingAnimation from "./LoadingAnimation.vue"
+import {analyze} from "../client.js";
 
 const router = useRouter();
 
@@ -303,50 +303,6 @@ let vantaEffect
 const loading = ref(true)
 const error = ref(null)
 const result = ref(null)
-
-async function getHeaders() {
-  return {
-    'Content-Type': 'application/json'
-  }
-}
-
-async function getRequestOptions(method, body) {
-  return {
-    method,
-    headers: await getHeaders(),
-    body: JSON.stringify(body),
-    redirect: 'follow'
-  }
-}
-
-async function handleResponse(response) {
-  if (!response.ok) {
-    const errorText = await response.text()
-    throw new Error(errorText)
-  }
-
-  return response.json()
-}
-
-async function analyze(uri) {
-  const analyzeEndpoint = `${API_BASE_URI}/analyze`
-  const requestBody = { uri: uri }
-
-  try {
-    const response = await fetch(analyzeEndpoint, await getRequestOptions('POST', requestBody))
-    const analyzeResponse = await handleResponse(response)
-
-    return {
-      result: analyzeResponse.result,
-      error: null
-    }
-  } catch (err) {
-    return {
-      result: null,
-      error: err.message
-    }
-  }
-}
 
 function goBack() {
   router.push({ name: 'Init' });
