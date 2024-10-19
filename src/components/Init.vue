@@ -64,23 +64,29 @@ const url = ref('')
 const showError = ref(false)
 
 function validate(string) {
-  let url
-
-  try {
-    url = new URL(string)
-  } catch (_) {
-    return false
+  // prepend https:// if protocol is missing
+  if (!/^https?:\/\//i.test(string)) {
+    string = 'https://' + string;
   }
 
-  return url.protocol === "http:" || url.protocol === "https:"
+  try {
+    const url = new URL(string);
+    if (url.protocol === "http:" || url.protocol === "https:") {
+      return url.href
+    }
+  } catch (_) {
+  }
+
+  return null
 }
 
 function handleAnalyze() {
-  if (validate(url.value)) {
+  const validUrl = validate(url.value)
+  if (validUrl) {
     showError.value = false
     router.push({
       name: 'Analyze',
-      params: {uri: encodeURIComponent(url.value)}
+      params: { uri: encodeURIComponent(validUrl) }
     })
   } else {
     showError.value = true
