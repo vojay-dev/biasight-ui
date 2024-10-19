@@ -3,7 +3,7 @@
     <div ref="vantaRef" class="vanta-bg"></div>
     <div class="h-[calc(100vh-68px)]">
       <div v-if="loading" class="text-center">
-        <span class="loading loading-spinner loading-lg"></span>
+        <LoadingAnimation loadingText="Loading" />
       </div>
       <div v-else-if="error" class="flex flex-row flex-wrap justify-center gap-4 pt-10 pb-4">
         <div role="alert" class="alert alert-warning w-3/4">
@@ -205,7 +205,7 @@
             </div>
             <div class="flex justify-center px-4 py-5 text-justify">
               <div>
-                <h2 class="card-title selection-card-title">Positive Aspects</h2>
+                <h2 class="card-title text-green-300">Positive Aspects</h2>
                 {{ result.positive_aspects }}
               </div>
             </div>
@@ -265,6 +265,7 @@ import {API_BASE_URI} from "../config.js";
 import {isMobile} from "mobile-device-detect";
 import {useRouter} from "vue-router";
 import {useSound} from "@vueuse/sound";
+import LoadingAnimation from "./LoadingAnimation.vue";
 
 const router = useRouter();
 
