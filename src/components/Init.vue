@@ -1,49 +1,51 @@
 <template>
   <div>
     <div ref="vantaRef" class="vanta-bg"></div>
-    <div class="hero h-[calc(100vh-68px)]">
-      <div class="hero-overlay bg-none"></div>
-      <div class="hero-content text-center text-neutral-content">
-        <kinesis-container>
-          <kinesis-element :strength="isMobile ? 0 : 10">
-            <div class="max-w-screen-md bg-neutral-900 bg-opacity-50 p-5 rounded-2xl">
-              <kinesis-element :strength="isMobile ? 0 : 5">
-                <p class="mb-2">Enter URL to analyze</p>
-                <p class="mb-5">
-                  <label class="input input-bordered input-primary input-md w-96 max-w-lg flex items-center gap-2">
+    <div class="h-[calc(100vh-68px)]">
+      <div class="flex flex-row flex-wrap justify-center gap-4 pt-10 pb-2">
+        <div>
+          <kinesis-container>
+            <kinesis-element :strength="isMobile ? 0 : 5" type="depth">
+              <div class="card max-w-xl bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all">
+                <figure><img src="../assets/biasight.jpg" alt="Stereotyping" /></figure>
+                <div class="card-body">
+                  <h2 class="card-title selection-card-title">BiaSight – Words Matter</h2>
+                  <p class="text-left">Enter URL to analyze for gender equity and bias</p>
+
+                  <label class="input input-bordered input-primary input-md w-full flex items-center gap-2">
                     <span class="badge badge-info">URL</span>
                     <input v-model="url" type="url" class="grow" placeholder="https://..." @keyup.enter="handleAnalyze" />
                   </label>
-                </p>
-                <Transition name="fade">
-                  <div v-if="showError" class="my-5">
-                    <div role="alert" class="alert alert-error">
-                      <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-6 w-6 shrink-0 stroke-current"
-                          fill="none"
-                          viewBox="0 0 24 24">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span>Please enter a valid URL.</span>
+
+                  <Transition name="fade">
+                    <div v-if="showError" class="my-2">
+                      <div role="alert" class="alert alert-error">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 shrink-0 stroke-current"
+                            fill="none"
+                            viewBox="0 0 24 24">
+                          <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Please enter a valid URL.</span>
+                      </div>
                     </div>
-                  </div>
-                </Transition>
-                <div class="flex flex-wrap gap-4 items-center justify-center">
-                  <div>
+                  </Transition>
+
+                  <div class="card-actions justify-center pt-2">
                     <button @click="handleAnalyze" class="btn btn-primary btn-outline w-48">
                       Analyze
                     </button>
                   </div>
                 </div>
-              </kinesis-element>
-            </div>
-          </kinesis-element>
-        </kinesis-container>
+              </div>
+            </kinesis-element>
+          </kinesis-container>
+        </div>
       </div>
     </div>
   </div>
@@ -107,3 +109,9 @@ onBeforeUnmount(() => {
   }
 })
 </script>
+
+<style scoped>
+.vanta-bg {
+  opacity: 0.4;
+}
+</style>
