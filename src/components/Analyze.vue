@@ -30,7 +30,7 @@
             <div class="mockup-browser-toolbar">
               <div class="input">{{ decodeURIComponent(uri) }}</div>
             </div>
-            <div class="flex justify-center px-4 py-5 text-justify">
+            <div class="flex justify-left px-4 py-5 text-justify">
               <div>
                 <h2 class="card-title selection-card-title">Summary</h2>
                 <p>{{ result.summary }}</p>
@@ -119,7 +119,7 @@
           <div class="stats bg-opacity-70 backdrop-blur shadow z-50">
 
             <div class="stat">
-              <div class="stat-figure text-primary">
+              <div :class="['stat-figure', getScoreClass(result.overall_score)]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24"><path fill="currentColor" d="M7.375 21.025q-.9-.025-1.713-.462t-1.537-1.288q-1-1.2-1.562-2.862T2 13q0-2.075.788-3.9t2.137-3.175T8.1 3.788T12 3t3.9.8t3.175 2.175T21.213 9.2T22 13.175q0 1.925-.625 3.6T19.6 19.6q-.7.7-1.475 1.063t-1.575.362q-.45 0-.9-.112t-.9-.338l-1.4-.7q-.3-.15-.638-.225T12 19.575t-.712.075t-.638.225l-1.4.7q-.475.25-.937.363t-.938.087M12 15q.825 0 1.413-.587T14 13q0-.2-.038-.4t-.112-.4l1.25-1.675q.25.325.438.687t.312.788h2.05q-.375-2.2-2.037-3.6T12 7T8.125 8.413T6.1 12h2.05q.35-1.35 1.425-2.175T12 9q.425 0 .8.075t.725.225l-1.275 1.725q-.05 0-.125-.013T12 11q-.825 0-1.412.588T10 13t.588 1.413T12 15"/></svg>
               </div>
               <div class="stat-title">Overall score</div>
@@ -203,7 +203,7 @@
           <div class="mockup-browser bg-base-300 bg-opacity-80 backdrop-blur w-2/3">
             <div class="mockup-browser-toolbar">
             </div>
-            <div class="flex justify-center px-4 py-5 text-justify">
+            <div class="flex justify-left px-4 py-5 text-justify">
               <div>
                 <h2 class="card-title text-green-300">Positive Aspects</h2>
                 {{ result.positive_aspects }}
@@ -216,7 +216,7 @@
           <div class="mockup-browser bg-base-300 bg-opacity-80 backdrop-blur w-2/3">
             <div class="mockup-browser-toolbar">
             </div>
-            <div class="flex justify-center px-4 py-5 text-justify">
+            <div class="flex justify-left px-4 py-5 text-justify">
               <div>
                 <h2 class="card-title selection-card-title">Suggestions</h2>
                 {{ result.improvement_suggestions }}
@@ -350,6 +350,12 @@ async function analyze(uri) {
 
 function goBack() {
   router.push({ name: 'Init' });
+}
+
+function getScoreClass(score) {
+  if (score <= 49) return 'text-error'
+  if (score >= 50 && score <= 69) return 'text-warning'
+  return 'text-success'
 }
 
 function getBadgeClass(score) {
