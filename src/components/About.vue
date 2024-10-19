@@ -54,6 +54,93 @@
         </p>
       </div>
 
+      <div class="flex w-full flex-col">
+        <div class="divider divider-accent">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.499 8.248h15m-15 7.501h15" />
+          </svg>
+          Gender Equality
+        </div>
+      </div>
+
+      <div class="flex flex-row flex-wrap gap-4 justify-left items-center mb-5">
+        <p class="mb-2 text-justify">
+          BiaSight evaluates web pages across four key categories to determine their level of inclusivity and gender equality. Each category is assigned a score, culminating in a comprehensive overall score that provides a clear picture of the website's performance in terms of gender representation. To guide you in creating more inclusive content, here's an overview of these four pillars:
+        </p>
+      </div>
+
+      <div class="flex flex-row flex-wrap justify-center gap-4 pt-2 pb-2">
+        <div>
+          <kinesis-container>
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
+              <div :class="['card w-96 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all', getHoverClass('stereotyping')]">
+                <figure><img src="../assets/stereotyping.jpg" alt="Stereotyping" /></figure>
+                <div class="card-body">
+                  <h2 class="card-title selection-card-title">Stereotyping</h2>
+                  <p class="text-left">
+                    Are traditional gender roles being perpetuated? BiaSight examines how genders are portrayed in roles, occupations, behaviors, and characteristics to identify instances where harmful stereotypes may be present.
+                  </p>
+                </div>
+              </div>
+            </kinesis-element>
+          </kinesis-container>
+        </div>
+        <div>
+          <kinesis-container>
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
+              <div :class="['card w-96 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all', getHoverClass('representation')]">
+                <figure><img src="../assets/representation.jpg" alt="Representation" /></figure>
+                <div class="card-body">
+                  <h2 class="card-title selection-card-title">Representation</h2>
+                  <p class="text-left">
+                    Is there a balanced and diverse representation of genders on the webpage? BiaSight considers the frequency of male vs. female mentions, the visibility of women in images, and the inclusion of diverse perspectives and experiences.
+                  </p>
+                </div>
+              </div>
+            </kinesis-element>
+          </kinesis-container>
+        </div>
+        <div>
+          <kinesis-container>
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
+              <div :class="['card w-96 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all', getHoverClass('language')]">
+                <figure><img src="../assets/language.jpg" alt="Language" /></figure>
+                <div class="card-body">
+                  <h2 class="card-title selection-card-title">Language</h2>
+                  <p class="text-left">
+                    Does the language used avoid gender bias? BiaSight detects gendered language, loaded words with stereotypical connotations, and the overall tone towards different genders. The analysis highlights opportunities to use more inclusive language.
+                  </p>
+                </div>
+              </div>
+            </kinesis-element>
+          </kinesis-container>
+        </div>
+        <div>
+          <kinesis-container>
+            <kinesis-element :strength="isMobile ? 0 : 20" type="depth">
+              <div :class="['card w-96 bg-base-100 shadow-xl bg-opacity-75 hover:bg-opacity-85 hover:ring-4 transition-all', getHoverClass('framing')]">
+                <figure><img src="../assets/framing.jpg" alt="Framing" /></figure>
+                <div class="card-body">
+                  <h2 class="card-title selection-card-title">Framing</h2>
+                  <p class="text-left">
+                    How are gender-related issues presented on the webpage? BiaSight checks for biases in perspective, looking for instances where the framing reinforces existing power structures or minimizes the experiences of any gender.
+                  </p>
+                </div>
+              </div>
+            </kinesis-element>
+          </kinesis-container>
+        </div>
+      </div>
+
+      <div class="flex w-full flex-col">
+        <div class="divider divider-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+          </svg>
+          Implementation
+        </div>
+      </div>
+
       <div class="flex flex-row flex-wrap gap-4 justify-left items-center mb-5">
           <h2 class="text-2xl gemini">Backend</h2>
           <p class="mb-2 text-justify">
@@ -83,11 +170,20 @@
 import {onBeforeUnmount, onMounted, ref} from "vue"
 import HALO from 'vanta/dist/vanta.halo.min'
 import * as THREE from 'three'
-
-const showSystemOverview = ref(false)
+import {isMobile} from "mobile-device-detect"
 
 const vantaRef = ref(null)
 let vantaEffect
+
+function getHoverClass(mode) {
+  switch (mode) {
+    case 'stereotyping': return 'hover:ring-primary'
+    case 'representation': return 'hover:ring-accent'
+    case 'language': return 'hover:ring-orange-600'
+    case 'framing': return 'hover:ring-yellow-300'
+    default: return 'hover:ring-primary'
+  }
+}
 
 onMounted(() => {
   vantaEffect = HALO({
