@@ -55,7 +55,8 @@
           </router-link>
         </div>
         <div class="navbar-end">
-          <div v-if="usage != null && limit != null"><span class="badge badge-outline badge-info">Daily usage: {{ usage }} / {{ limit }}</span></div>
+          <div v-if="usage != null && limit != null && usage < limit"><span class="badge badge-outline badge-info">Daily usage: {{ usage }} / {{ limit }}</span></div>
+          <div v-else-if="usage != null && limit != null && usage >= limit"><span class="badge badge-outline badge-warning">Daily limit reached</span></div>
           <div v-else-if="error != null"><span class="badge badge-error">Error talking to backend</span></div>
         </div>
       </nav>
