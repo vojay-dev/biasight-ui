@@ -18,15 +18,15 @@
         </p>
 
         <p class="mb-2 text-justify">
-          The vision of BiaSight is to make gender-inclusive language as integral to web development as responsive design or SEO optimization and to inspire creators for change.
-        </p>
-
-        <p class="mb-2 text-justify">
-          Remember, words matter. They shape perceptions, influence behaviors, and can either reinforce or challenge the gender inequalities that persist in our society.
+          The vision of BiaSight is to make gender-inclusive language as integral to web development as responsive design or SEO optimization and to inspire creators for change. Remember, words matter. They shape perceptions, influence behaviors, and can either reinforce or challenge the gender inequalities that persist in our society.
         </p>
 
         <p class="mb-2 text-justify">
           Please also read the <a href="https://www.un.org/sustainabledevelopment/gender-equality/" class="link link-hover font-bold text-white underline decoration-sky-600 hover:decoration-2" target="_blank">UN Sustainable Development Goal 5: Achieve gender equality and empower all women and girls</a> for more context.
+        </p>
+
+        <p class="mb-2 text-justify">
+          The 2024 UNESCO gender report "<strong>Technology on Her Terms</strong>" reveals a clear digital divide: 244 million fewer women than men have internet access, and women hold less than 25% of jobs in science, technology, engineering, and mathematics (STEM). This underrepresentation perpetuates harmful stereotypes in online content and even AI algorithms. For instance, AI-generated texts often describe women as "models" or "waitresses", while associating men with "business" and "career". These biases create a vicious cycle, discouraging girls from pursuing STEM fields and, in turn, shaping the very technologies that reinforce these stereotypes. <strong class="text-primary">BiaSight aims to break this cycle by empowering content creators to identify and mitigate gender bias in their work—a concern easily overlooked in today's world of readily available AI content generation tools</strong>. By raising awareness of subtle prejudices, BiaSight helps build a more inclusive digital world that accurately reflects and empowers all genders. <a href="https://unesdoc.unesco.org/ark:/48223/pf0000389406" class="link link-hover font-bold text-white underline decoration-sky-600 hover:decoration-2" target="_blank">Explore the full report to learn how we can create technology truly on her terms</a>.
         </p>
 
         <div role="alert" class="alert">
@@ -46,6 +46,14 @@
           </span>
         </div>
 
+      </div>
+
+      <div class="flex flex-row flex-wrap gap-4 justify-left items-center mb-5">
+        <img src="../assets/architecture.png" @click="showArchitecture = !showArchitecture" alt="system overview" width="1200" />
+        <FsLightbox
+            :toggler="showArchitecture"
+            :sources="[architecture]"
+        />
       </div>
 
       <div class="flex flex-row flex-wrap gap-4 justify-left items-center mb-5">
@@ -167,10 +175,14 @@
 </template>
 
 <script setup>
-import {onBeforeUnmount, onMounted, ref} from "vue"
+import {onBeforeUnmount, onMounted, ref} from 'vue'
+import FsLightbox from 'fslightbox-vue/v3'
 import HALO from 'vanta/dist/vanta.halo.min'
 import * as THREE from 'three'
-import {isMobile} from "mobile-device-detect"
+import {isMobile} from 'mobile-device-detect'
+import architecture from '../assets/architecture.png'
+
+const showArchitecture = ref(false)
 
 const vantaRef = ref(null)
 let vantaEffect
