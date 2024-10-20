@@ -92,8 +92,8 @@
 <script setup>
 import {useRoute} from 'vue-router'
 import {computed, onMounted, ref} from 'vue'
-import CustomCursor from "./components/CustomCursor.vue"
-import {getLimit} from "./client.js";
+import CustomCursor from './components/CustomCursor.vue'
+import {getLimit} from './client.js';
 
 const route = useRoute()
 const currentRouteName = computed(() => route.name)

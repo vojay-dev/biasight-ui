@@ -279,17 +279,17 @@
 </template>
 
 <script setup>
-import {onBeforeUnmount, onMounted, ref} from "vue"
+import {onBeforeUnmount, onMounted, ref} from 'vue'
 import HALO from 'vanta/dist/vanta.halo.min'
 import * as THREE from 'three'
 import selectionSfx from '../assets/selection.mp3'
-import {isMobile} from "mobile-device-detect"
-import {useRouter} from "vue-router"
-import {useSound} from "@vueuse/sound"
-import LoadingAnimation from "./LoadingAnimation.vue"
-import {analyze} from "../client.js";
+import {isMobile} from 'mobile-device-detect'
+import {useRouter} from 'vue-router'
+import {useSound} from '@vueuse/sound'
+import LoadingAnimation from './LoadingAnimation.vue'
+import {analyze} from '../client.js'
 
-const router = useRouter();
+const router = useRouter()
 
 const props = defineProps({
   uri: String
@@ -305,7 +305,7 @@ const error = ref(null)
 const result = ref(null)
 
 function goBack() {
-  router.push({ name: 'Init' });
+  router.push({ name: 'Init' })
 }
 
 function getScoreClass(score) {
@@ -347,7 +347,7 @@ onMounted(async () => {
       result.value = analysisResult
     }
   } else {
-    error.value = "No URI provided for analysis."
+    error.value = 'No URI provided for analysis.'
   }
 
   loading.value = false

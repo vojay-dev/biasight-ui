@@ -56,11 +56,11 @@
 </template>
 
 <script setup>
-import {onBeforeUnmount, onMounted, ref} from "vue"
+import {onBeforeUnmount, onMounted, ref} from 'vue'
 import HALO from 'vanta/dist/vanta.halo.min'
 import * as THREE from 'three'
-import {isMobile} from "mobile-device-detect"
-import {useRouter} from "vue-router"
+import {isMobile} from 'mobile-device-detect'
+import {useRouter} from 'vue-router'
 
 const vantaRef = ref(null)
 let vantaEffect
@@ -76,8 +76,8 @@ function validate(string) {
   }
 
   try {
-    const url = new URL(string);
-    if (url.protocol === "http:" || url.protocol === "https:") {
+    const url = new URL(string)
+    if (url.protocol === 'http:' || url.protocol === 'https:') {
       return url.href
     }
   } catch (_) {

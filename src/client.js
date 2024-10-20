@@ -1,4 +1,4 @@
-import {API_BASE_URI} from "./config.js";
+import {API_BASE_URI} from './config.js'
 
 export async function getHeaders() {
     return {
