@@ -91,18 +91,20 @@
 
 <script setup>
 import {useRoute} from 'vue-router'
-import {computed, onMounted, ref} from 'vue'
+import {computed, inject, onMounted, ref} from 'vue'
 import CustomCursor from './components/CustomCursor.vue'
 import {getLimit} from './client.js';
 
 const route = useRoute()
+const emitter = inject('emitter')
+
 const currentRouteName = computed(() => route.name)
 
 const limit = ref(null)
 const usage = ref(null)
 const error = ref(null)
 
-onMounted(async () => {
+async function updateUsage() {
   const limitResult = await getLimit()
 
   if (limitResult.error != null) {
@@ -111,5 +113,10 @@ onMounted(async () => {
     limit.value = limitResult.result.limit
     usage.value = limitResult.result.usage
   }
+}
+
+onMounted(async () => {
+  emitter.on('update-usage', updateUsage)
+  await updateUsage()
 })
 </script>

@@ -279,7 +279,7 @@
 </template>
 
 <script setup>
-import {onBeforeUnmount, onMounted, ref} from 'vue'
+import {inject, onBeforeUnmount, onMounted, ref} from 'vue'
 import HALO from 'vanta/dist/vanta.halo.min'
 import * as THREE from 'three'
 import selectionSfx from '../assets/selection.mp3'
@@ -290,6 +290,7 @@ import LoadingAnimation from './LoadingAnimation.vue'
 import {analyze} from '../client.js'
 
 const router = useRouter()
+const emitter = inject('emitter')
 
 const props = defineProps({
   uri: String
@@ -346,6 +347,8 @@ onMounted(async () => {
     } else {
       result.value = analysisResult
     }
+
+    emitter.emit('update-usage', {})
   } else {
     error.value = 'No URI provided for analysis.'
   }
