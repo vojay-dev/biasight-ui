@@ -51,9 +51,21 @@ This is the frontend part of the project. **Backend**: [biasight](https://github
 
 ---
 
+## Tech stack
+
+- [VueJS](https://vuejs.org/) 3.4 for frontend development
+- [Vite](https://vitejs.dev/) for frontend tooling
+- [Tailwind CSS](https://tailwindcss.com/) as a utility-first CSS framework
+- [daisyUI](https://daisyui.com/) as a component library for Tailwind CSS
+
 ## Project setup
 
-Ensure to configure the correct API endpoint for local or live usage in `src/config.js`.
+Ensure to configure the correct API endpoint for local or live usage in `src/config.js`. When you run the
+[backend](https://github.com/vojay-dev/biasight) locally, ensure to set `API_BASE_URI` accordingly, for example:
+
+```js
+export const API_BASE_URI = 'http://localhost:8000'
+```
 
 ```sh
 npm install
@@ -70,3 +82,19 @@ npm run dev
 ```sh
 npm run build
 ```
+
+## Components
+
+![components](doc/components.png)
+
+The frontend is separated into the following components:
+
+- 📚 **Main Components**
+    - Init: Component to enter a valid URL
+    - Analyze: Running the actual analysis talking to the API and presenting the report
+- 📄 **Page Components**
+    - Home: Start page
+    - About: About page with basic project information
+- ⚙️ **Utility Components**
+    - CustomCursor: Custom cursor implementation
+    - LoadingAnimation: Loading animation with customizable loading text
