@@ -140,6 +140,31 @@
         </div>
       </div>
 
+      <div class="flex flex-row flex-wrap gap-4 justify-left items-center my-5">
+        <p class="mb-2 text-justify">
+          As a first step, a score is assigned by Gemini for each of the four bias categories: stereotyping, representation, language, and framing. The overall score is then calculated using the average of the four categories. Then, two additional factors are applied:
+        </p>
+
+        <div class="mb-2 text-justify">
+          <ul>
+            <li><strong class="text-accent">Ratio Boost</strong>: A bonus is added to the base score based on the male-to-female mention ratio. The closer the ratio is to 1 (meaning equal mentions), the higher the bonus, with a maximum boost of 30% when the ratio is exactly 1.</li>
+            <li><strong class="text-accent">Neutral Language Boost</strong>: A bonus is added based on the percentage of gender-neutral language used in the text. The higher the percentage of gender-neutral language, the higher the bonus, with a maximum boost of 10% when the language is 100% gender-neutral.</li>
+          </ul>
+        </div>
+
+        <p class="mb-2 text-justify">
+          These boosts aim to acknowledge and reward content with a more balanced gender representation and inclusive language. The final overall score is then capped between 1 (extremely biased) and 100 (completely free of bias), providing a comprehensive evaluation of the content's inclusivity.
+        </p>
+      </div>
+
+      <div class="flex flex-row flex-wrap gap-4 justify-left items-center mb-5">
+        <img src="../assets/score.png" @click="showScore = !showScore" alt="score calculation" width="1108" />
+        <FsLightbox
+            :toggler="showScore"
+            :sources="[score]"
+        />
+      </div>
+
       <div class="flex w-full flex-col">
         <div class="divider divider-primary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-14">
@@ -164,11 +189,30 @@
           </p>
       </div>
 
-      <div class="flex flex-row flex-wrap gap-4 justify-left items-center mb-20">
+      <div class="flex flex-row flex-wrap gap-4 justify-left items-center mb-5">
           <h2 class="text-2xl gemini">Frontend</h2>
           <p class="mb-2 text-justify">
             The frontend is powered by Vue 3 and Vite, supported by daisyUI and Tailwind CSS for efficient frontend development. Together, these tools provide users with a sleek and modern interface for seamless interaction with the backend.
           </p>
+      </div>
+
+      <div class="flex flex-wrap gap-4 items-center justify-center mb-20">
+        <div>
+          <a href="https://github.com/vojay-dev/biasight" target="_blank" class="btn btn-success btn-outline w-48">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+            </svg>
+            GitHub Backend
+          </a>
+        </div>
+        <div>
+          <a href="https://github.com/vojay-dev/biasight-ui" target="_blank" class="btn btn-primary btn-outline w-48">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+            </svg>
+            GitHub Frontend
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -181,8 +225,10 @@ import HALO from 'vanta/dist/vanta.halo.min'
 import * as THREE from 'three'
 import {isMobile} from 'mobile-device-detect'
 import architecture from '../assets/architecture.png'
+import score from '../assets/score.png'
 
 const showArchitecture = ref(false)
+const showScore = ref(false)
 
 const vantaRef = ref(null)
 let vantaEffect
