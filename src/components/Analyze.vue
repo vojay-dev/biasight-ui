@@ -56,7 +56,7 @@
                   <figure><img src="../assets/stereotyping.jpg" alt="Stereotyping" /></figure>
                   <div class="card-body">
                     <h2 class="card-title selection-card-title">Stereotyping</h2>
-                    <p class="text-left">Does the text reinforce or challenge gender stereotypes?</p>
+                    <p class="text-left">Does the content reinforce or challenge gender stereotypes?</p>
                     <div class="card-actions justify-center">
                       <span :class="['badge badge-lg', getBadgeClass(result.stereotyping_score)]">{{ result.stereotyping_score }} / 100</span>
                     </div>
