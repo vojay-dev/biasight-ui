@@ -16,7 +16,7 @@
                 <p class="mb-5">BiaSight analyzes websites for gender bias, providing feedback and suggestions using <span class="badge badge-warning badge-outline tooltip tooltip-bottom" data-tip="Using Google Gemini">AI</span>.</p>
                 <div class="flex flex-wrap gap-4 items-center justify-center">
                   <div>
-                    <router-link to="/init" tag="button" class="btn btn-success btn-outline w-48">
+                    <router-link to="/init" tag="button" @mouseenter="handleButtonHover(true)" @mouseleave="handleButtonHover(false)" class="btn btn-success btn-outline w-48">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
                       </svg>
@@ -52,6 +52,33 @@ import {isMobile} from 'mobile-device-detect'
 
 const vantaRef = ref(null)
 let vantaEffect
+const DEFAULT_CHAOS = 6.50
+let animationFrame = null
+
+const handleButtonHover = (isHovered) => {
+  if (isMobile || !vantaEffect) return;
+
+  const targetChaos = isHovered ? 0 : DEFAULT_CHAOS;
+
+  // Smooth transition
+  const updateChaos = () => {
+    const currentChaos = vantaEffect.options.chaos;
+    const newChaos = currentChaos + (targetChaos - currentChaos) * 0.1;
+
+    vantaEffect.setOptions({
+      chaos: newChaos
+    });
+
+    if (Math.abs(targetChaos - newChaos) > 0.01) {
+      animationFrame = requestAnimationFrame(updateChaos);
+    }
+  }
+
+  if (animationFrame) {
+    cancelAnimationFrame(animationFrame);
+  }
+  animationFrame = requestAnimationFrame(updateChaos);
+}
 
 onMounted(() => {
   vantaEffect = TRUNK({
@@ -77,3 +104,11 @@ onBeforeUnmount(() => {
   }
 })
 </script>
+<style scoped>
+.vanta-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+</style>
