@@ -45,19 +45,29 @@
 
 <script setup>
 import {onBeforeUnmount, onMounted, ref} from 'vue'
-import BIRDS from 'vanta/dist/vanta.birds.min.js'
+import TRUNK from 'vanta/dist/vanta.trunk.min.js'
 import * as THREE from 'three'
+import p5 from 'p5'
 import {isMobile} from 'mobile-device-detect'
 
 const vantaRef = ref(null)
 let vantaEffect
 
 onMounted(() => {
-  vantaEffect = BIRDS({
+  vantaEffect = TRUNK({
     el: vantaRef.value,
     THREE: THREE,
-    color1: 0x59ff,
-    color2: 0xd200ff
+    p5: p5,
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    scale: 1.00,
+    scaleMobile: 1.00,
+    color: 0x674598,
+    backgroundColor: 0x202020,
+    chaos: 6.50
   })
 })
 
