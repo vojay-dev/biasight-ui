@@ -25,7 +25,11 @@
         </div>
       </div>
       <div v-else-if="result" class="pb-20">
-        <div class="flex flex-row flex-wrap justify-center gap-4 pt-10 pb-4">
+        <div class="flex flex-row flex-wrap justify-center gap-4 pt-10">
+          <h1 class="report-created-at">Report from {{ formatDate(createdAt) }}</h1>
+        </div>
+
+        <div class="flex flex-row flex-wrap justify-center gap-4 pt-8 pb-4">
           <div class="mockup-browser bg-base-300 bg-opacity-80 backdrop-blur w-2/3">
             <div class="mockup-browser-toolbar">
               <div class="input">{{ decodeURIComponent(uri) }}</div>
@@ -288,6 +292,7 @@ import {useRouter} from 'vue-router'
 import {useSound} from '@vueuse/sound'
 import LoadingAnimation from './LoadingAnimation.vue'
 import {analyze} from '../client.js'
+import {format} from 'date-fns'
 
 const router = useRouter()
 const emitter = inject('emitter')
@@ -304,6 +309,7 @@ let vantaEffect
 const loading = ref(true)
 const error = ref(null)
 const result = ref(null)
+const createdAt = ref(null)
 
 function goBack() {
   router.push({ name: 'Init' })
@@ -331,6 +337,12 @@ function getHoverClass(mode) {
   }
 }
 
+function formatDate(dateString) {
+  if (!dateString) return ''
+  const date = new Date(dateString)
+  return format(date, 'MMM dd, yyyy, h:mm:ss a')
+}
+
 onMounted(async () => {
   vantaEffect = HALO({
     el: vantaRef.value,
@@ -340,12 +352,13 @@ onMounted(async () => {
 
   if (props.uri) {
     const decodedUri = decodeURIComponent(props.uri)
-    const { result: analysisResult, error: analysisError } = await analyze(decodedUri)
+    const { result: analysisResult, createdAt: analysisCreatedAt, error: analysisError } = await analyze(decodedUri)
 
     if (analysisError) {
       error.value = analysisError
     } else {
       result.value = analysisResult
+      createdAt.value = analysisCreatedAt
     }
 
     emitter.emit('update-usage', {})

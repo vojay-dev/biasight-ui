@@ -34,11 +34,13 @@ export async function analyze(uri) {
 
         return {
             result: analyzeResponse.result,
+            createdAt: analyzeResponse.created_at,
             error: null
         }
     } catch (err) {
         return {
             result: null,
+            createdAt: null,
             error: err.message
         }
     }
