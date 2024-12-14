@@ -104,11 +104,3 @@ onBeforeUnmount(() => {
   }
 })
 </script>
-<style scoped>
-.vanta-bg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
-</style>

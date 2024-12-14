@@ -3,7 +3,7 @@
     <div :key="$route.path">
     <CustomCursor />
     <header>
-      <nav class="navbar w-full bg-base-100 bg-opacity-20 shadow-lg text-neutral-content backdrop-blur z-50 relative">
+      <nav class="navbar w-full bg-zinc-900 bg-opacity-20 shadow-lg text-neutral-content backdrop-blur z-50 relative">
         <div class="navbar-start">
           <div class="dropdown">
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle hover:ring-primary hover:ring-2 hover:ring-opacity-80" v-bind:class="{ 'text-white': ['Selection', 'Profile'].includes(currentRouteName) }">
@@ -66,7 +66,7 @@
           <component :is="Component" />
       </router-view>
     </main>
-    <footer class="footer footer-center p-1 px-2 bg-base-100 bg-opacity-60 text-neutral-content fixed bottom-0 z-50 backdrop-blur">
+    <footer class="footer footer-center p-1 px-2 bg-zinc-900 bg-opacity-60 text-neutral-content fixed bottom-0 z-50 backdrop-blur">
       <aside class="items-center grid-flow-col">
         <p>© 2024 Volker Janz</p>
         <nav class="grid-flow-col gap-1 md:place-self-center md:justify-self-end">
